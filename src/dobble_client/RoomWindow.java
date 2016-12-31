@@ -9,12 +9,12 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public final class Window extends JFrame{
+public final class RoomWindow extends JFrame{
     
     private final int ROOM_COUNT;
     private final int ROOMS_PER_ROW = 5;
     
-    Window(int room_count) {
+    RoomWindow(int room_count) {
         this.ROOM_COUNT = room_count;
 	this.setTitle("The Dobble Game");
 	this.setSize(1000, 700);

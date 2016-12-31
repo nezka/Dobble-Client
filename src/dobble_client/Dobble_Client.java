@@ -11,14 +11,12 @@ package dobble_client;
  */
 ;
 
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 public class Dobble_Client {
  public static void main(String argv[]) {
-    Test.parserTest();
-    
+    //Test.socketTest("abcd");
+    Network nw = new Network();
+    new ServerWindow(nw);
     
             
  }

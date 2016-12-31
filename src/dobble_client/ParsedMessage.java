@@ -7,20 +7,19 @@ public class ParsedMessage {
     private final int TEXT_SIZE = 420;
     private char type;
     private char subtype;
-    private short length; //opraveno na short
     private String text;
     
     public ParsedMessage() {
         type = '0';
         subtype = 0;
-        length = 0;
+        //length = 0;
         text = null;
     }
     
     public ParsedMessage(char type, char subtype, byte length, String text) {
         this.type = type;
         this.subtype = subtype;
-        this.length = length;
+        //this.length = length;
         this.text = text;
     }
     

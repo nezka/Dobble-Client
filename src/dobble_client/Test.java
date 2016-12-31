@@ -6,6 +6,10 @@
 package dobble_client;
 
 import java.io.IOException;
+import java.net.InetAddress;
+import java.net.InetSocketAddress;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,10 +36,28 @@ public class Test {
             Network nw = new Network("localhost", 10009);
             nw.sendMessage(nw.prepareMessage());
             nw.recieveMessage();
-            new Window(17);
+            new RoomWindow(17);
 
         } catch (IOException ex) {
             Logger.getLogger(Dobble_Client.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    
+    public static void socketTest(String hostname) {
+        try {
+            Socket socket = new Socket();
+            InetAddress address = InetAddress.getByName(hostname);
+            System.out.println("Adresa: " + address.getHostAddress() + " name: " +address.getHostName()+"\n");
+            try {
+                socket.connect(new InetSocketAddress(address.getHostAddress(), 1222), 1000);
+            } catch (IOException ex) {
+                System.out.println("io\n");
+                return;
+            }
+            
+            
+        } catch (UnknownHostException ex) {
+            System.out.println("unknownhost");
         }
     }
 }

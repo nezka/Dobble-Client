@@ -10,10 +10,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
+import java.net.UnknownHostException;
 
         
 public class Network {
@@ -22,25 +21,41 @@ public class Network {
     private OutputStreamWriter osw;
     private BufferedReader isr;
     
-    public Network(String hostname, int port) {
-        try {
-            connectToServer(hostname, port);
-        } catch (IOException ex) {
-            System.out.print("Connection Error!");
-        }
+    public Network() {
+        socket = null;
+        osw = null;
+        isr = null;
     }
     
-    protected void connectToServer(String hostname, int port) throws IOException {
-        socket = new Socket(hostname, port);
-        InetAddress adresa = socket.getInetAddress();
-        System.out.print("Connecting to: "+adresa.getHostAddress()+" with hostname: "+adresa.getHostName()+"\n" );
-        isr = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
-        osw = new OutputStreamWriter(socket.getOutputStream());
+    
+    public String connectToServer(String hostname, int port) {
+        InetAddress address;
+        try {
+            address = InetAddress.getByName(hostname);
+            
+        } catch (UnknownHostException e ) {
+            System.out.println("Uknown host");
+            return "Invalid hostname for server.";
+        }
+        
+        try {
+            socket = new Socket();
+            socket.connect(new InetSocketAddress(address.getHostAddress(), port), 1000);
+            System.out.print("Connecting to: "+address.getHostAddress()+" with hostname: "+address.getHostName()+"\n" );
+            isr = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
+            osw = new OutputStreamWriter(socket.getOutputStream());
+            return null;
+        } catch (IOException ex) {
+                System.out.println("IO exception - connection");
+                return "Can't connect to server.";
+        }
+        
     }
     
     void sendMessage(String message) throws IOException {
         osw.write(message);
         osw.flush();
+        System.out.println("Message Send: " + message);
     }
     
     String recieveMessage() throws IOException {
