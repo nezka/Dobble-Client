@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/Game.java</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/RoomWindow.java</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/Dobble_Client.java</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/InputParametersValidator.java</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/MessageStack.java</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/ServerWindow.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/Test.java</file>
             <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/Network.java</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/Test.java</file>
+            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/WindowsManager.java</file>
         </group>
     </open-files>
 </project-private>

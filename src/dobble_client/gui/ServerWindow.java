@@ -3,13 +3,16 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dobble_client;
+package dobble_client.gui;
 
+import dobble_client.gui.WindowsManager;
+import dobble_client.network.Network;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -22,9 +25,17 @@ public class ServerWindow extends JFrame {
     private JTextField ipTX;		
     private JTextField portTX;	
     private Network nw;
+    private WindowsManager wm;
+    private String connError;
 
-    public ServerWindow(Network nw) {
+    public ServerWindow(Network nw, WindowsManager wm) {
+        //connError = null;
         this.nw = nw;
+        this.wm = wm;
+        setUpFrame();
+    }
+    
+    public void setUpFrame() {
         this.setTitle("Connection parameters");
         this.setSize(300, 135);
         this.setLocationRelativeTo(null);
@@ -61,8 +72,12 @@ public class ServerWindow extends JFrame {
         JButton cancel = new JButton("Cancel");
         panel.add(ok);
         panel.add(cancel);
+        
+        JCheckBox reconnect = new JCheckBox("Try reconnect");
+        reconnect.setSelected(false);
+        panel.add(reconnect);
 
-        ok.addActionListener(new ActionListener () {
+       ok.addActionListener(new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent e) {
                 InputParametersValidator ipv = new InputParametersValidator();
@@ -78,15 +93,23 @@ public class ServerWindow extends JFrame {
                     error = "\nCheck that you have the correct server address!";
                     JOptionPane.showMessageDialog(null, retValue + error, "Error", JOptionPane.ERROR_MESSAGE);
                     return;
+                } else {
+                    wm.switchWindows();
                 }
             }
         });
 
         cancel.addActionListener(new ActionListener() {
+            @Override
             public void actionPerformed(ActionEvent e) {
                 System.exit(0);
             }
         });
         return panel;
     }
+    
+    private void closeWindow() {
+        this.dispose();
+    }
+    
 }

@@ -1,5 +1,7 @@
 
-package dobble_client;
+package dobble_client.message;
+
+import java.io.IOException;
 
 public class ParsedMessage {
     private final char MAX_TYPE = 'Z';
@@ -62,6 +64,14 @@ public class ParsedMessage {
     */
     public String getText() {
         return this.text;
+    }
+    
+    public String prepareMessageForSending() {
+       String message = type + subtype + text;
+        if (message.charAt(message.length()-1) != '\n') {
+            message = message+'\n';
+        }
+        return message;
     }
     
 }

@@ -1,16 +1,13 @@
 
-package dobble_client;
+package dobble_client.message;
 
 public class Parser {
     private final int TYPE_INDEX = 0;
     private final int SUBTYPE_INDEX = 1;
     private final int TEXT_INDEX = 2;
     
-    public Parser() {
-        
-    }
     
-    ParsedMessage parseMessage(String message) {
+    public ParsedMessage parseMessage(String message) {
         String modifiedMessage;
         ParsedMessage pm = new ParsedMessage();
         getType(message, pm);

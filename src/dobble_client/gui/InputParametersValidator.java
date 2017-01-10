@@ -1,5 +1,5 @@
 
-package dobble_client;
+package dobble_client.gui;
 
 
 public class InputParametersValidator {
