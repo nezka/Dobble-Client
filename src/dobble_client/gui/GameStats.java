@@ -50,10 +50,10 @@ public class GameStats extends JPanel {
         round.setText("" + points);
     }
     
-    public void setStats(int player, int opponent, int round) {
-        this.player.setText("" + player);
-        this.opponent.setText("" + opponent);
-        this.round.setText("" + round);
+    public void setStats(String player, String opponent, String round) {
+        this.player.setText(player);
+        this.opponent.setText(opponent);
+        this.round.setText(round);
     }
     
 }

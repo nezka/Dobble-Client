@@ -4,14 +4,21 @@
  * and open the template in the editor.
  */
 package dobble_client.game;
-
+/*
 import dobble_client.network.ParsedMessage;
 
 /**
  *
  * @author anvy
  */
-public class MessageProcessor {
+/*public class MessageProcessor {
+    
+    private Actions actions;
+    
+    public MessageProcessor(Actions actions) {
+        this.actions = actions;
+        
+    }
     
     public void processMessage(ParsedMessage message) {
         switch(message.getType()) {
@@ -67,4 +74,4 @@ public class MessageProcessor {
         }
     }
     
-}
+}*/

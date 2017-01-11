@@ -5,8 +5,9 @@
  */
 package dobble_client.gui;
 
-import dobble_client.game.Controller;
+import dobble_client.game.Actions;
 import dobble_client.game.Symbol;
+import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import javax.swing.JLabel;
@@ -17,27 +18,34 @@ import javax.swing.JLabel;
  */
 public class GuiSymbol extends JLabel{
     
-    private Symbol symbol;
-    private Controller control;
+    private int id;
+    private String name;
+    private Color color;
+    private Actions control;
     
-    protected GuiSymbol(Controller control, Symbol symbol) {
-        super("Nanananananana");
-        this.symbol = symbol;
-        this.control = control;
+    protected GuiSymbol(String name, int id, Color color) {
+        super(name);
+        this.id = id;
+        this.color = color;
         setClickedListener();
+        this.setForeground(color);
     }
     
     private void setClickedListener() {
         this.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                control.sendMessageCardClicked("message");
+                control.sendMessageCardClicked("" + id);
                 System.out.println("click\n");
             }
         });
     }
     
     protected int getSymbolId() {
-        return symbol.ordinal();
+        return id;
+    }
+    
+    protected void setControl(Actions control) {
+        this.control = control;
     }
 }

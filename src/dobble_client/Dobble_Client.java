@@ -12,7 +12,10 @@ package dobble_client;
 ;
 
 
-import dobble_client.game.Controller;
+import dobble_client.game.Actions;
+
+
+
 import dobble_client.gui.GameWindow;
 import dobble_client.network.Network;
 import dobble_client.gui.ServerWindow;
@@ -20,7 +23,7 @@ import dobble_client.gui.WindowsManager;
 import dobble_client.network.MessageStack;
 import dobble_client.network.RecieveThread;
 import dobble_client.network.SendThread;
-import javax.swing.JDialog;
+
 
 
 public class Dobble_Client {
@@ -33,7 +36,7 @@ public class Dobble_Client {
     Network nw = new Network();
     MessageStack recieved = new MessageStack();
     MessageStack toBeSend = new MessageStack();
-    Controller control = new Controller(nw, recieved, toBeSend);
+    Actions control = new Actions(nw, recieved, toBeSend, wm);
     RecieveThread receiveThread = new RecieveThread(recieved, nw);
     SendThread sendThread = new SendThread(toBeSend, nw);
     nw.setSendAndRecieveThread(sendThread, receiveThread);

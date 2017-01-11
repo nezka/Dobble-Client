@@ -1,26 +1,34 @@
 
 package dobble_client.gui;
 
-import dobble_client.game.Card;
-import dobble_client.game.Controller;
-import dobble_client.game.Symbol;
+
+import dobble_client.game.Actions;
+
 import java.awt.BorderLayout;
-import java.awt.Label;
+
+import java.awt.GridLayout;
+
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 public final class GameWindow extends JFrame{
     
     private WindowsManager wm;
-    private Controller control;
+    private Actions control;
     private GameStats stats = new GameStats();
+    private JPanel centerPN = new JPanel();
+    private JPanel mainPN;
+    private GuiCards cards;
     
-    public GameWindow (WindowsManager wm, Controller control) {
+    public GameWindow (WindowsManager wm, Actions control) {
         this.wm = wm;
         this.control = control;
+        GuiSymbols symbols = new GuiSymbols(control);
+        this.cards = new GuiCards(symbols.getSymbols());
         setUpFrame();
     }
     
@@ -38,20 +46,18 @@ public final class GameWindow extends JFrame{
     }
     
     private JPanel createMainPanel() {
-        JPanel mainPN = new JPanel();
+        mainPN = new JPanel();
         mainPN.setLayout(new BorderLayout());
-        mainPN.add(new GuiSymbol(control, Symbol.A), BorderLayout.CENTER);
         mainPN.add(stats, BorderLayout.EAST);
+        addCenterPN();
         return mainPN;
         
     }
     
-    private JPanel createControlPanel() {
-        JPanel controlPN = new JPanel();
-        controlPN.setLayout(new BorderLayout());
-        
-        
-        return controlPN;
+    private void addCenterPN() {
+        mainPN.add(centerPN, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
     }
     
     private void addOnCloseAction() {
@@ -67,22 +73,88 @@ public final class GameWindow extends JFrame{
             }
         }
         });
+         
+    }
+    
+    private JPanel prepareCard(int index) {
+        GuiSymbol[] sym = cards.getCard(index).getSymbols();
+        
+        JPanel cardPN = new JPanel();
+        cardPN.setLayout(new GridLayout(3,3));
+        
+        cardPN.add(new JLabel());
+        cardPN.add(sym[0]);
+        cardPN.add(new JLabel());
+        
+        for (int i = 1; i < 4; i++) {
+            cardPN.add(sym[i]);
+        }
+        cardPN.add(new JLabel());
+        cardPN.add(sym[4]);
+        cardPN.add(new JLabel());
+        return cardPN;
     }
     
     
-    public void drawCard(Card card) {
-        System.out.println("kreslim kartu: " + card.getCardId() + "\n");
+    public void drawCards(int myCard, int middle) {
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());  
+        
+        panel.add(prepareCard(middle), BorderLayout.NORTH);
+        panel.add(prepareCard(myCard), BorderLayout.SOUTH);
+        
+        SwingUtilities.invokeLater(() -> {
+            mainPN.remove(centerPN);
+            centerPN = panel;
+            addCenterPN();
+        });
     }
+    
+    
     
 
     
-    public void updateGameStats(int player, int opponent, int round){        
+    public void updateGameStats(String player, String opponent, String round){        
         SwingUtilities.invokeLater(() -> {
             stats.setStats(player, opponent, round);
         });
-        
-     
     }
+    
+    public void showWaitMessage() {
+        SwingUtilities.invokeLater(() -> {
+            mainPN.remove(centerPN);
+            centerPN = new JPanel();
+            centerPN.setLayout(new BorderLayout());
+            String message = "   ->   There is no opponent for you. Try to wait a moment, please."; 
+            JLabel lbl = new JLabel(message);
+            lbl.setVerticalAlignment(SwingConstants.CENTER);
+            centerPN.add(lbl , BorderLayout.WEST);
+            addCenterPN();
+  
+        });
+    }
+    
+    public void showVictoryMessage(boolean win) {
+        SwingUtilities.invokeLater(() -> {
+            mainPN.remove(centerPN);
+            centerPN = new JPanel();
+            centerPN.setLayout(new BorderLayout());
+            String message;
+            if (win) {
+                message = "   ->   Yeeeeeaaaah, you WIN!"; 
+            } else {
+                message = "   ->   Sorry, you have lost :("; 
+            }
+            
+            JLabel lbl = new JLabel(message);
+            lbl.setVerticalAlignment(SwingConstants.CENTER);
+            centerPN.add(lbl , BorderLayout.WEST);
+            addCenterPN();
+  
+        });
+    }
+    
+    
     
     
 }
