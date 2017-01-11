@@ -5,6 +5,7 @@ package dobble_client.gui;
 import dobble_client.game.Actions;
 
 import java.awt.BorderLayout;
+import java.awt.Component;
 
 import java.awt.GridLayout;
 
@@ -22,13 +23,13 @@ public final class GameWindow extends JFrame{
     private GameStats stats = new GameStats();
     private JPanel centerPN = new JPanel();
     private JPanel mainPN;
-    private GuiCards cards;
+    private Cards cards;
     
     public GameWindow (WindowsManager wm, Actions control) {
         this.wm = wm;
         this.control = control;
-        GuiSymbols symbols = new GuiSymbols(control);
-        this.cards = new GuiCards(symbols.getSymbols());
+        Symbols symbols = new Symbols(control);
+        this.cards = new Cards(symbols.getSymbols());
         setUpFrame();
     }
     
@@ -77,22 +78,9 @@ public final class GameWindow extends JFrame{
     }
     
     private JPanel prepareCard(int index) {
-        GuiSymbol[] sym = cards.getCard(index).getSymbols();
+        Symbol[] sym = cards.getCard(index).getSymbols();
+        return new CardPanel(control, sym);
         
-        JPanel cardPN = new JPanel();
-        cardPN.setLayout(new GridLayout(3,3));
-        
-        cardPN.add(new JLabel());
-        cardPN.add(sym[0]);
-        cardPN.add(new JLabel());
-        
-        for (int i = 1; i < 4; i++) {
-            cardPN.add(sym[i]);
-        }
-        cardPN.add(new JLabel());
-        cardPN.add(sym[4]);
-        cardPN.add(new JLabel());
-        return cardPN;
     }
     
     
@@ -100,10 +88,13 @@ public final class GameWindow extends JFrame{
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());  
         
-        panel.add(prepareCard(middle), BorderLayout.NORTH);
+        JPanel middleCard = prepareCard(middle);
+        
+        panel.add(middleCard, BorderLayout.NORTH);
         panel.add(prepareCard(myCard), BorderLayout.SOUTH);
         
         SwingUtilities.invokeLater(() -> {
+            //
             mainPN.remove(centerPN);
             centerPN = panel;
             addCenterPN();

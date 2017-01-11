@@ -6,7 +6,6 @@
 package dobble_client.gui;
 
 import dobble_client.game.Actions;
-import dobble_client.game.Symbol;
 import java.awt.Color;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -16,29 +15,23 @@ import javax.swing.JLabel;
  *
  * @author anvy
  */
-public class GuiSymbol extends JLabel{
+public class Symbol{
     
     private int id;
     private String name;
     private Color color;
     private Actions control;
     
-    protected GuiSymbol(String name, int id, Color color) {
-        super(name);
+    protected Symbol(String name, int id, Color color) {
+        this.name = name;
         this.id = id;
         this.color = color;
         setClickedListener();
-        this.setForeground(color);
+        
     }
     
     private void setClickedListener() {
-        this.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                control.sendMessageCardClicked("" + id);
-                System.out.println("click\n");
-            }
-        });
+        
     }
     
     protected int getSymbolId() {
@@ -47,5 +40,13 @@ public class GuiSymbol extends JLabel{
     
     protected void setControl(Actions control) {
         this.control = control;
+    }
+    
+    public String getName() {
+        return name;
+    }
+    
+    public Color getColor() {
+        return color;
     }
 }

@@ -12,24 +12,24 @@ import java.awt.Color;
  *
  * @author anvy
  */
-public class GuiSymbols {
+public class Symbols {
     
-    private GuiSymbol[] symbols = new GuiSymbol[]{
-        new GuiSymbol("WHITE", 0, Color.BLACK),
-        new GuiSymbol("BLUE", 1, Color.BLUE),
-        new GuiSymbol("BLACK", 2, Color.RED),
-        new GuiSymbol("RED", 3, Color.BLUE),
-        new GuiSymbol("BLUE", 4, Color.BLACK),
-        new GuiSymbol("RED", 5, Color.WHITE),
-        new GuiSymbol("BLACK", 6, Color.BLUE),
-        new GuiSymbol("WHITE", 7, Color.BLUE),
-        new GuiSymbol("WHITE", 8, Color.RED),
-        new GuiSymbol("WHITE", 9, Color.WHITE),
-        new GuiSymbol("BLACK", 10, Color.BLACK),
-        new GuiSymbol("BLACK", 11, Color.WHITE),
-        new GuiSymbol("BLUE", 12, Color.WHITE),
-        new GuiSymbol("BLUE", 13, Color.RED),
-        new GuiSymbol("RED", 14, Color.RED),
+    private Symbol[] symbols = new Symbol[]{
+        new Symbol("WHITE", 0, Color.BLACK),
+        new Symbol("BLUE", 1, Color.BLUE),
+        new Symbol("BLACK", 2, Color.RED),
+        new Symbol("RED", 3, Color.BLUE),
+        new Symbol("BLUE", 4, Color.BLACK),
+        new Symbol("RED", 5, Color.WHITE),
+        new Symbol("BLACK", 6, Color.BLUE),
+        new Symbol("WHITE", 7, Color.BLUE),
+        new Symbol("WHITE", 8, Color.RED),
+        new Symbol("WHITE", 9, Color.WHITE),
+        new Symbol("BLACK", 10, Color.BLACK),
+        new Symbol("BLACK", 11, Color.WHITE),
+        new Symbol("BLUE", 12, Color.WHITE),
+        new Symbol("BLUE", 13, Color.RED),
+        new Symbol("RED", 14, Color.RED),
        /* new GuiSymbol("RED", 15, Color.BLACK),
         new GuiSymbol("BLUE", 16, Color.WHITE),
         new GuiSymbol("GREEN", 17, Color.RED),
@@ -38,12 +38,12 @@ public class GuiSymbols {
         new GuiSymbol("GREEN", 20, Color.BLUE),*/
     };
     
-    public GuiSymbols(Actions control) {
+    public Symbols(Actions control) {
         setControls(control);
     }
     
     
-    public GuiSymbol getSymbol(int index) {
+    public Symbol getSymbol(int index) {
         if (index < symbols.length) {
             return symbols[index];
         } else {
@@ -58,7 +58,7 @@ public class GuiSymbols {
         }
     }
     
-    protected GuiSymbol[] getSymbols() {
+    protected Symbol[] getSymbols() {
         return symbols;
     }
 }

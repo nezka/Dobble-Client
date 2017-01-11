@@ -11,13 +11,13 @@ import java.util.ArrayList;
  *
  * @author anvy
  */
-public class GuiCard {
+public class Card {
     
     private final static int SYMBOL_COUNT = 5;
     
-    private GuiSymbol[] symbols = new GuiSymbol[SYMBOL_COUNT];
+    private Symbol[] symbols = new Symbol[SYMBOL_COUNT];
     
-    public GuiCard(GuiSymbol one, GuiSymbol two, GuiSymbol three, GuiSymbol four, GuiSymbol five) {
+    public Card(Symbol one, Symbol two, Symbol three, Symbol four, Symbol five) {
         symbols[0] = one;
         symbols[1] = two;
         symbols[2] = three;
@@ -26,7 +26,7 @@ public class GuiCard {
                 
     }
     
-    public GuiSymbol[] getSymbols() {
+    public Symbol[] getSymbols() {
         return symbols;
     }
     
