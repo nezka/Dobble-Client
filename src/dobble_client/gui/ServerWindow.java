@@ -5,6 +5,7 @@
  */
 package dobble_client.gui;
 
+import dobble_client.game.Controller;
 import dobble_client.gui.WindowsManager;
 import dobble_client.network.Network;
 import java.awt.BorderLayout;
@@ -24,13 +25,12 @@ public class ServerWindow extends JFrame {
     private static final long serialVersionUID = 1L;
     private JTextField ipTX;		
     private JTextField portTX;	
-    private Network nw;
     private WindowsManager wm;
-    private String connError;
+    private Controller control;
+    
 
-    public ServerWindow(Network nw, WindowsManager wm) {
-        //connError = null;
-        this.nw = nw;
+    public ServerWindow(WindowsManager wm, Controller control) {
+        this.control = control;
         this.wm = wm;
         setUpFrame();
     }
@@ -88,7 +88,11 @@ public class ServerWindow extends JFrame {
                     return;
                 }
                 
-                String retValue = nw.connectToServer(ipv.validatedIP, ipv.validatedPort);
+                if (reconnect.isSelected()) {
+                    
+                }
+                
+                String retValue = control.connectToGameServer(ipv.validatedIP, ipv.validatedPort);
                 if (retValue != null) {
                     error = "\nCheck that you have the correct server address!";
                     JOptionPane.showMessageDialog(null, retValue + error, "Error", JOptionPane.ERROR_MESSAGE);

@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dobble_client.message;
+package dobble_client.network;
 
-import dobble_client.message.ParsedMessage;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,15 +13,15 @@ import java.util.List;
  * @author anvy
  */
 public class MessageStack {
-    private List<ParsedMessage> stack = new ArrayList<ParsedMessage>();
+    private final List<ParsedMessage> stack = new ArrayList<ParsedMessage>();
     
     public synchronized void addMessage(ParsedMessage m) {
         stack.add(m);
     }
     
     public synchronized ParsedMessage getMessage() {
-        if (!stack.isEmpty()) {
-            return stack.get(0);
+        if (!stack.isEmpty()) {                    
+            return stack.remove(0);
         }
         return null;
     }
@@ -31,8 +30,8 @@ public class MessageStack {
         return stack.size();
     }
     
-    public synchronized boolean isEmty() {
-        if (stack.size() == 0) {
+    public synchronized boolean isEmpty() {
+        if (stack.isEmpty()) {
             return true;
         }
         return false;

@@ -1,5 +1,7 @@
 
-package dobble_client.message;
+package dobble_client.network;
+
+import dobble_client.network.ParsedMessage;
 
 public class Parser {
     private final int TYPE_INDEX = 0;

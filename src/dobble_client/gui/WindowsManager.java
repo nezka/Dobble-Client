@@ -16,7 +16,9 @@ public class WindowsManager {
     
     public void setWindows(JFrame fr1, JFrame fr2) {
         this.fr1 = fr1;
-        this.fr2 = fr2;                
+        this.fr2 = fr2; 
+        fr1.setVisible(true);
+        fr2.setVisible(false);
     }
     
     public void switchWindows() {
@@ -29,7 +31,12 @@ public class WindowsManager {
         }
     }
     
-    public ServerWindow getServerWindow() {
-        return (ServerWindow)fr1;
+    public JFrame getFocusWindow() {
+        if (fr1.isVisible()) {
+            return fr1;
+        } else {
+            return fr2;
+        }
     }
+    
 }

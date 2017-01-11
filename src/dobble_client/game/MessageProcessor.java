@@ -5,7 +5,7 @@
  */
 package dobble_client.game;
 
-import dobble_client.message.ParsedMessage;
+import dobble_client.network.ParsedMessage;
 
 /**
  *
@@ -15,18 +15,54 @@ public class MessageProcessor {
     
     public void processMessage(ParsedMessage message) {
         switch(message.getType()) {
-            case 'N': break;
-            case 'A': break;
+            case 'G': 
+                processGameMessage(message);
+                break;
+            case 'S': 
+                processServiceMessage(message);
+                break;
                     default: 
                         
         }
     }
     
-    public void processGameMessage(ParsedMessage message) {
-        switch(message.getType()) {
-            case 'N': break;
-            case 'A': break;
-                    default: 
+    private void processGameMessage(ParsedMessage message) {
+        switch(message.getSubtype()) {
+            case 'W': 
+                System.out.println("Nedostatek hracu, cekej.\n");
+                break;
+            case 'G': 
+                System.out.println("Zacina hra\n");
+                break;
+            case 'V': 
+                System.out.println("Vitez kola\n");
+                break;
+            case 'I': 
+                System.out.println("Nespravna odpoved\n");
+                break;
+            case 'F': 
+                System.out.println("Hra skoncila\n");
+                break;
+            default: 
+                System.out.println("podezrely server");
+                        
+        }
+    }
+    
+    private void processServiceMessage(ParsedMessage message) {
+        switch(message.getSubtype()) {
+            case 'E': 
+                System.out.println("Vypina se server :(\n");
+                break;
+            case 'P': 
+                System.out.println("Protihrac se odpojil :(\n");
+                break;
+            case 'C': 
+                System.out.println("Servrovi se nelibime :(\n");
+                break;
+            default: 
+                System.out.println("Podezrely server.");
+                //poslat zpravu podezrely server a odpojit se
                         
         }
     }

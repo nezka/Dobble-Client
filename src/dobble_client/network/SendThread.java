@@ -5,15 +5,13 @@
  */
 package dobble_client.network;
 
-import dobble_client.message.MessageStack;
-import dobble_client.message.ParsedMessage;
 import java.io.IOException;
 
 /**
  *
  * @author anvy
  */
-public class SendThread implements Runnable {
+public class SendThread extends Thread {
     private MessageStack messages;
     private Network netConnection;
     private boolean shouldRun = true;
@@ -21,6 +19,7 @@ public class SendThread implements Runnable {
     public SendThread(MessageStack messages, Network netConnection) {
         this.messages = messages;
         this.netConnection = netConnection;
+        this.setDaemon(true);
     }
 
     @Override
@@ -31,9 +30,9 @@ public class SendThread implements Runnable {
         while(shouldRun) {
             
             synchronized (messages) {
-                while (messages.isEmty()) {
+                while (messages.isEmpty()) {
                     try {
-                        wait();
+                        messages.wait();
                     } catch (InterruptedException ex) {
                         System.err.println("Sending thread interrupted from beaty sleep.");
                                 

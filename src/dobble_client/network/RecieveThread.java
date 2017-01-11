@@ -5,9 +5,6 @@
  */
 package dobble_client.network;
 
-import dobble_client.message.MessageStack;
-import dobble_client.message.ParsedMessage;
-import dobble_client.message.Parser;
 import dobble_client.network.Network;
 import java.io.IOException;
 
@@ -15,7 +12,7 @@ import java.io.IOException;
  *
  * @author anvy
  */
-public class RecieveThread implements Runnable{
+public class RecieveThread extends Thread {
     
     private MessageStack messages;
     private Network netConnection;
@@ -24,6 +21,7 @@ public class RecieveThread implements Runnable{
     public RecieveThread(MessageStack messages, Network netConnection) {
         this.messages = messages;
         this.netConnection = netConnection;
+        this.setDaemon(true);
     }
 
     @Override
@@ -38,7 +36,11 @@ public class RecieveThread implements Runnable{
             try {
                 message = netConnection.recieveMessage();
                 parsedMessage = parser.parseMessage(message);
-                messages.addMessage(parsedMessage);
+                synchronized (messages) {
+                    messages.addMessage(parsedMessage);
+                    messages.notifyAll();
+                }
+                
             } catch (IOException ex) {
                 System.err.println("IOException during recieving message: " + ex.getStackTrace());
             }

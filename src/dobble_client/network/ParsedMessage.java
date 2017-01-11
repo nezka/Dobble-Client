@@ -1,5 +1,5 @@
 
-package dobble_client.message;
+package dobble_client.network;
 
 import java.io.IOException;
 

@@ -5,7 +5,7 @@
  */
 package dobble_client.network;
 
-import dobble_client.gui.WindowsManager;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -18,24 +18,19 @@ import java.net.UnknownHostException;
         
 public class Network {
     
-    private Socket socket;
-    private OutputStreamWriter osw;
-    private BufferedReader isr;
-    private int port;
-    private String hostname;
-    private WindowsManager windows;
+    private Socket socket = null;
+    private OutputStreamWriter osw = null;
+    private BufferedReader isr = null;
+    private RecieveThread recieveThread = null;
+    private SendThread sendThread = null;
     
-    public Network(WindowsManager windows) {
-        socket = null;
-        osw = null;
-        isr = null;
-        port = -1;
-        hostname = null;
-        this.windows = windows;
+    public Network() {
+
+
     }
     
     
-       public String connectToServer(String hostname, int port) {
+    public String connectToServer(String hostname, int port) {
         InetAddress address;
         try {
             address = InetAddress.getByName(hostname);
@@ -52,7 +47,8 @@ public class Network {
             
             isr = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
             osw = new OutputStreamWriter(socket.getOutputStream());
-            
+            recieveThread.start();
+            sendThread.start();
             return null;
         } catch (IOException ex) {
                 System.out.println("IO exception - connection");
@@ -62,22 +58,29 @@ public class Network {
     }
     
     
-    void sendMessage(String message) throws IOException {
+    protected void sendMessage(String message) throws IOException {
         osw.write(message);
         osw.flush();
         System.out.println("Message Send: " + message);
     }
     
-    String recieveMessage() throws IOException {
+    protected String recieveMessage() throws IOException {
         String message = isr.readLine();
         System.out.println("Message Received: " + message);
         return message;
     }
     
-    void closeConnection() throws IOException {
+    public void closeConnection() throws IOException {
+        sendThread.stopThread();
+        recieveThread.stopThread();
         isr.close();
         osw.close();
         socket.close();
+    }
+    
+    public void setSendAndRecieveThread(SendThread s, RecieveThread r) {
+        sendThread = s;
+        recieveThread = r;
     }
     
 }
