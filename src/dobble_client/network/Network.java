@@ -66,6 +66,9 @@ public class Network {
     
     protected String recieveMessage() throws IOException {
         String message = isr.readLine();
+        if (message == null) {
+            System.out.println("");
+        }
         System.out.println("Message Received: " + message);
         return message;
     }

@@ -8,6 +8,10 @@ package dobble_client.game;
 import dobble_client.network.MessageStack;
 import dobble_client.network.Network;
 import dobble_client.network.ParsedMessage;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 /**
@@ -15,8 +19,9 @@ import dobble_client.network.ParsedMessage;
  * @author anvy
  */
 public class Controller {
-    private boolean inGame;
-    private boolean gameEnded;
+    private boolean inGame = false;
+    private boolean gameEnded = false;
+    private int round = 0;
     
     private MessageStack recieved;
     private MessageStack toBeSended;
@@ -32,7 +37,7 @@ public class Controller {
     }
 
  
-    public void run() {
+    public void waitForMessage() {
         MessageProcessor mp = new MessageProcessor();
         while (true) {
             synchronized (recieved) {
@@ -63,7 +68,59 @@ public class Controller {
         return nw.connectToServer(hostname, port);
     }
     
+    public void sendMessageCardClicked(String text) {
+        ParsedMessage m = new ParsedMessage('A', 'H', "oj");
+        addToSendQueue(m);
+        
+    }
+    
+    public void joinGame(boolean retry) {
+        String text = null;
+        if (retry) {
+            text = getRetrySecret();
+        }
+        ParsedMessage message = new ParsedMessage('G', 'J', text);
+        addToSendQueue(message);
+    }
+    
     public void exitGame() {
+        ParsedMessage message = new ParsedMessage('G', 'L', null); 
+        addToSendQueue(message);
+    }
+    
+    private void addToSendQueue(ParsedMessage message) {
+        synchronized (toBeSended) {
+            toBeSended.addMessage(message);
+            toBeSended.notifyAll();
+        } 
+    }
+    
+    private String getRetrySecret() {
+        String secret = null;
+        BufferedReader br = null;
+        File file = new File("retry.txt");
+        if (!file.exists()) {
+            return null;
+        }
+        try {
+            br = new BufferedReader(new FileReader(file));
+            secret = br.readLine();
+        } catch(IOException e) {
+            return null;
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException ex) {
+                    System.err.println("Can't close the retry file.");
+                }
+            }
+        }
+        return secret;
+
+    }
+    
+    public void closeGame() {
         System.exit(0);
     }
     

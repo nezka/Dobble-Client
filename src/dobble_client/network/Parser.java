@@ -1,8 +1,6 @@
 
 package dobble_client.network;
 
-import dobble_client.network.ParsedMessage;
-
 public class Parser {
     private final int TYPE_INDEX = 0;
     private final int SUBTYPE_INDEX = 1;
@@ -10,6 +8,9 @@ public class Parser {
     
     
     public ParsedMessage parseMessage(String message) {
+        if (message == null) {
+            System.out.println("Connection ended\n");
+        }
         String modifiedMessage;
         ParsedMessage pm = new ParsedMessage();
         getType(message, pm);
@@ -27,12 +28,7 @@ public class Parser {
     private void getSubtype(String message, ParsedMessage pm) {
         pm.setSubtype(message.charAt(SUBTYPE_INDEX));
     }
-   /* 
-    private void getLength(String message, ParsedMessage pm) {
-        char len = message.charAt(2);
-        pm.setLength((byte)len);
-    }
-   */ 
+ 
     private void getText(String message, ParsedMessage pm) {
         pm.setText(message.substring(TEXT_INDEX));
     }

@@ -3,19 +3,22 @@ package dobble_client.gui;
 
 import dobble_client.game.Card;
 import dobble_client.game.Controller;
-import dobble_client.network.Network;
+import dobble_client.game.Symbol;
 import java.awt.BorderLayout;
-import javax.swing.JButton;
+import java.awt.Label;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
-public final class RoomWindow extends JFrame{
+public final class GameWindow extends JFrame{
     
     private WindowsManager wm;
     private Controller control;
+    private GameStats stats = new GameStats();
     
-    public RoomWindow (WindowsManager wm, Controller control) {
+    public GameWindow (WindowsManager wm, Controller control) {
         this.wm = wm;
         this.control = control;
         setUpFrame();
@@ -29,20 +32,26 @@ public final class RoomWindow extends JFrame{
 	this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);	
         this.setResizable(false);
 	this.setLayout(new BorderLayout());
-        JPanel pn = new JPanel();
-        this.add(pn, BorderLayout.CENTER);
-        this.addOnCloseAction();
-       
-        
+        this.add(createMainPanel(), BorderLayout.CENTER);
+        this.addOnCloseAction(); 
 	this.setVisible(false);
     }
     
-    JPanel createMainPanel() {
+    private JPanel createMainPanel() {
         JPanel mainPN = new JPanel();
         mainPN.setLayout(new BorderLayout());
-        
+        mainPN.add(new GuiSymbol(control, Symbol.A), BorderLayout.CENTER);
+        mainPN.add(stats, BorderLayout.EAST);
         return mainPN;
         
+    }
+    
+    private JPanel createControlPanel() {
+        JPanel controlPN = new JPanel();
+        controlPN.setLayout(new BorderLayout());
+        
+        
+        return controlPN;
     }
     
     private void addOnCloseAction() {
@@ -67,5 +76,14 @@ public final class RoomWindow extends JFrame{
     
 
     
+    public void updateGameStats(int player, int opponent, int round){        
+        SwingUtilities.invokeLater(() -> {
+            stats.setStats(player, opponent, round);
+        });
+        
+     
+    }
+    
     
 }
+

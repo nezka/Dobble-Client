@@ -11,8 +11,9 @@ package dobble_client;
  */
 ;
 
+
 import dobble_client.game.Controller;
-import dobble_client.gui.RoomWindow;
+import dobble_client.gui.GameWindow;
 import dobble_client.network.Network;
 import dobble_client.gui.ServerWindow;
 import dobble_client.gui.WindowsManager;
@@ -39,9 +40,9 @@ public class Dobble_Client {
    // nw.start();
     
     ServerWindow sw = new ServerWindow(wm, control);
-    RoomWindow rw = new RoomWindow(wm, control);
+    GameWindow rw = new GameWindow(wm, control);
     wm.setWindows(sw, rw);
-    control.run();
+    control.waitForMessage();
     
      System.out.println("tady jjjjj");
      

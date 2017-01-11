@@ -13,12 +13,11 @@ public class ParsedMessage {
     
     public ParsedMessage() {
         type = '0';
-        subtype = 0;
-        //length = 0;
+        subtype = '0';
         text = null;
     }
     
-    public ParsedMessage(char type, char subtype, byte length, String text) {
+    public ParsedMessage(char type, char subtype, String text) {
         this.type = type;
         this.subtype = subtype;
         //this.length = length;
@@ -67,10 +66,16 @@ public class ParsedMessage {
     }
     
     public String prepareMessageForSending() {
-       String message = type + subtype + text;
+        if (text == null) {
+            text = "\n";
+        }
+        
+        String message = "" + type + subtype + text;
+        
         if (message.charAt(message.length()-1) != '\n') {
             message = message+'\n';
         }
+        //System.out.println("Pripravena zprava: " + message);
         return message;
     }
     

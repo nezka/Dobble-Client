@@ -98,6 +98,7 @@ public class ServerWindow extends JFrame {
                     JOptionPane.showMessageDialog(null, retValue + error, "Error", JOptionPane.ERROR_MESSAGE);
                     return;
                 } else {
+                    control.joinGame(reconnect.isSelected());
                     wm.switchWindows();
                 }
             }

@@ -5,7 +5,6 @@
  */
 package dobble_client.network;
 
-import dobble_client.network.Network;
 import java.io.IOException;
 
 /**
