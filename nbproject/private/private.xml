@@ -2,26 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/network/Network.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/game/Game.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/gui/GuiSymbol.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/game/Symbol.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/network/SendThread.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/network/ParsedMessage.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/gui/RoomWindow.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/game/Cards.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/game/Card.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/gui/WindowsManager.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/Dobble_Client.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/network/MessageStack.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/game/Controller.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/game/MessageProcessor.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/network/RecieveThread.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/message/Parser.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/gui/GuiCard.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/gui/InputParametersValidator.java</file>
-            <file>file:/home/anvy/NetBeansProjects/Dobble_Client/src/dobble_client/gui/ServerWindow.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

@@ -34,8 +34,10 @@ public class RecieveThread extends Thread {
             
             try {
                 message = netConnection.recieveMessage();
+                message = message.trim();
                 parsedMessage = parser.parseMessage(message);
                 synchronized (messages) {
+                    System.out.println("zprava: " + parsedMessage.getType()+ parsedMessage.getSubtype()+ parsedMessage.getText() );
                     messages.addMessage(parsedMessage);
                     messages.notifyAll();
                 }

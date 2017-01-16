@@ -47,7 +47,7 @@ public class Dobble_Client {
     wm.setWindows(sw, rw);
     control.waitForMessage();
     
-     System.out.println("tady jjjjj");
+    
      
     
             

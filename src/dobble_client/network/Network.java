@@ -69,7 +69,7 @@ public class Network {
         if (message == null) {
             System.out.println("");
         }
-        System.out.println("Message Received: " + message);
+        System.out.println("Message Received:" + message);
         return message;
     }
     

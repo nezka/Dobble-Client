@@ -51,17 +51,11 @@ public class CardPanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
-        
-        
- 
         float thickness = 3;
         g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(thickness));
-        
-       Ellipse2D.Double circle = new Ellipse2D.Double(this.getWidth()/3 - 65,25,this.getWidth()/2,this.getHeight()-50);
-        g2.draw(circle);
-        
-        
+        g2.setStroke(new BasicStroke(thickness));   
+        Ellipse2D.Double circle = new Ellipse2D.Double(this.getWidth()/3 - 65,25,this.getWidth()/2,this.getHeight()-50);
+        g2.draw(circle);       
         g2.setColor(Color.CYAN);
         g2.fill(circle);
     }

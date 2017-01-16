@@ -23,7 +23,7 @@ import java.io.IOException;
 public class Actions {
     private boolean inGame = false;
     private boolean gameEnded = false;
-    private int round = 0;
+    private int round = 1;
     
     private MessageStack recieved;
     private MessageStack toBeSended;
@@ -57,7 +57,7 @@ public class Actions {
                     }
                 }
                 ParsedMessage m = recieved.getMessage();
-                System.out.println(m.getText());
+                System.out.println(m.getText() + "   neeeee");
                 processMessage(m);
                    
                 
@@ -77,6 +77,7 @@ public class Actions {
     }
     
     public void sendMessageCardClicked(String text) {
+        text = round+";"+text;
         ParsedMessage m = new ParsedMessage('G', 'C', text);
         addToSendQueue(m);
         
@@ -87,7 +88,7 @@ public class Actions {
         if (retry) {
             text = RetryManager.getRetrySecret();
         }
-        ParsedMessage message = new ParsedMessage('G', 'J', text);
+        ParsedMessage message = new ParsedMessage('G', 'N', text);
         addToSendQueue(message);
     }
     
@@ -136,8 +137,10 @@ public class Actions {
                 System.out.println("Zacina hra\n");
                 break;
             case 'V': 
+                      
                 parts = parseText(message.getText());
                 wm.getGameWindow().updateGameStats(parts[0], parts[1], parts[2]);
+                round = Integer.parseInt(parts[2]);
                 wm.getGameWindow().drawCards(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
                 System.out.println("Vitez kola\n");
                 break;
@@ -148,6 +151,7 @@ public class Actions {
                 parts = parseText(message.getText());
                 int my = Integer.parseInt(parts[0]);
                 int you = Integer.parseInt(parts[1]);
+                wm.getGameWindow().updateGameStats(parts[0], parts[1], round+"");
                 if (my > you) {
                     wm.getGameWindow().showVictoryMessage(true);
                 } else {
