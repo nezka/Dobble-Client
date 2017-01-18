@@ -45,7 +45,9 @@ public class Dobble_Client {
     ServerWindow sw = new ServerWindow(wm, control);
     GameWindow rw = new GameWindow(wm, control);
     wm.setWindows(sw, rw);
+    
     control.waitForMessage();
+    
     
     
      

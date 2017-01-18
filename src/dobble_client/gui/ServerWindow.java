@@ -74,12 +74,14 @@ public class ServerWindow extends JFrame {
         panel.add(cancel);
         
         JCheckBox reconnect = new JCheckBox("Try reconnect");
+        reconnect.setToolTipText("If your opponent is still waiting, you can try to join the last game.");
         reconnect.setSelected(false);
         panel.add(reconnect);
 
        ok.addActionListener(new ActionListener () {
             @Override
             public void actionPerformed(ActionEvent e) {
+                
                 InputParametersValidator ipv = new InputParametersValidator();
                 String error = ipv.checkParameters(ipTX.getText(), portTX.getText());
                 
@@ -99,8 +101,9 @@ public class ServerWindow extends JFrame {
                     return;
                 } else {
                     control.joinGame(reconnect.isSelected());
-                    wm.switchWindows();
+                    wm.showWindow(wm.getGameWindow());
                 }
+                
             }
         });
 

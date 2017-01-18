@@ -6,6 +6,8 @@
 package dobble_client.network;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -34,16 +36,28 @@ public class RecieveThread extends Thread {
             
             try {
                 message = netConnection.recieveMessage();
-                message = message.trim();
-                parsedMessage = parser.parseMessage(message);
+                
+                if (message == null) {
+                    netConnection.closeConnection();
+                    parsedMessage = new ParsedMessage();
+                    parsedMessage.setType('S');
+                    parsedMessage.setSubtype('E');
+                } else {
+                    message = message.trim();
+                    parsedMessage = parser.parseMessage(message);
+                }
+                
                 synchronized (messages) {
-                    System.out.println("zprava: " + parsedMessage.getType()+ parsedMessage.getSubtype()+ parsedMessage.getText() );
                     messages.addMessage(parsedMessage);
                     messages.notifyAll();
                 }
                 
             } catch (IOException ex) {
-                System.err.println("IOException during recieving message: " + ex.getStackTrace());
+                try {
+                    Thread.sleep(500);
+                } catch (InterruptedException ex1) {
+                    //Logger.getLogger(RecieveThread.class.getName()).log(Level.SEVERE, null, ex1);
+                }
             }
             
             

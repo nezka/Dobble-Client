@@ -5,10 +5,9 @@ package dobble_client.gui;
 import dobble_client.game.Actions;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
-
-import java.awt.GridLayout;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -101,8 +100,49 @@ public final class GameWindow extends JFrame{
         });
     }
     
+    public void showOpponentLeft() {
+        SwingUtilities.invokeLater(() -> {
+            mainPN.remove(centerPN);
+            centerPN = new JPanel();
+            centerPN.setLayout(new BorderLayout());
+            String message = "   ->   Your opponent left. Try to wait a moment, they may return."; 
+            JLabel lbl = new JLabel(message);
+            lbl.setVerticalAlignment(SwingConstants.CENTER);
+            centerPN.add(lbl , BorderLayout.WEST);
+            addCenterPN();
+  
+        });
+    }
     
     
+    public void showServerDisconnect() {
+        SwingUtilities.invokeLater(() -> {
+            mainPN.remove(centerPN);
+            centerPN = new JPanel();
+            centerPN.setLayout(new BorderLayout());
+            String message = "   ->   The connection with server was disconnected."; 
+            JButton again = new JButton("Back");
+            again.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    wm.showWindow(wm.getServerWindow());
+                    control.resetGame();
+                    showWaitMessage();
+                    
+                }
+                
+            });
+            JLabel lbl = new JLabel(message);
+            JPanel p = new JPanel();
+            p.add(again);
+            lbl.setVerticalAlignment(SwingConstants.CENTER);
+            centerPN.add(p, BorderLayout.SOUTH);
+            centerPN.add(lbl , BorderLayout.WEST);
+            centerPN.add(lbl , BorderLayout.WEST);        
+            addCenterPN();
+  
+        });
+    }
 
     
     public void updateGameStats(String player, String opponent, String round){        
@@ -136,9 +176,19 @@ public final class GameWindow extends JFrame{
             } else {
                 message = "   ->   Sorry, you have lost :("; 
             }
-            
+            JButton again = new JButton("Play again!");
+            again.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                   control.playAgain();
+                }
+                
+            });
             JLabel lbl = new JLabel(message);
+            JPanel p = new JPanel();
+            p.add(again);
             lbl.setVerticalAlignment(SwingConstants.CENTER);
+            centerPN.add(p, BorderLayout.SOUTH);
             centerPN.add(lbl , BorderLayout.WEST);
             addCenterPN();
   

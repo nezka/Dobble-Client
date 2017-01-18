@@ -14,6 +14,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 /**
@@ -76,11 +78,20 @@ public class Actions {
         return nw.connectToServer(hostname, port);
     }
     
+    public void reconnectAfterDisconnect() {
+        
+    }
+    
     public void sendMessageCardClicked(String text) {
         text = round+";"+text;
         ParsedMessage m = new ParsedMessage('G', 'C', text);
         addToSendQueue(m);
-        
+       
+    }
+    
+    public void playAgain() {
+        ParsedMessage message = new ParsedMessage('G', 'A', null); 
+        addToSendQueue(message);
     }
     
     public void joinGame(boolean retry) {
@@ -108,6 +119,9 @@ public class Actions {
     
     
     public void closeGame() {
+        System.out.println("zaviram");
+                
+        nw.closeConnection();
         System.exit(0);
     }
     
@@ -119,7 +133,7 @@ public class Actions {
             case 'S': 
                 processServiceMessage(message);
                 break;
-                    default: 
+            default: 
                         
         }
     }
@@ -165,16 +179,21 @@ public class Actions {
         }
     }
     
+    public void resetGame() {
+        wm.getGameWindow().updateGameStats("0", "0", "0");
+        round = 1;
+    }
+    
     private void processServiceMessage(ParsedMessage message) {
         switch(message.getSubtype()) {
             case 'E': 
-                System.out.println("Vypina se server :(\n");
+//                nw.closeConnection();
+                wm.getGameWindow().showServerDisconnect();
+           //     wm.showWindow(wm.getServerWindow());
                 break;
-            case 'P': 
+            case 'O': 
+                wm.getGameWindow().showOpponentLeft();
                 System.out.println("Protihrac se odpojil :(\n");
-                break;
-            case 'C': 
-                System.out.println("Servrovi se nelibime :(\n");
                 break;
             default: 
                 System.out.println("Podezrely server.");

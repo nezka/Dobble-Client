@@ -7,39 +7,55 @@ import javax.swing.JFrame;
 
 
 public class WindowsManager {
-    private JFrame serverWindow;
-    private JFrame gameWindow;
+    private ServerWindow serverWindow;
+    private GameWindow gameWindow;
     
     public WindowsManager() {
                       
     }
     
-    public void setWindows(JFrame fr1, JFrame fr2) {
+    public void setWindows(ServerWindow fr1, GameWindow fr2) {
         this.serverWindow = fr1;
         this.gameWindow = fr2; 
         fr1.setVisible(true);
         fr2.setVisible(false);
     }
     
-    public void switchWindows() {
+    public void showWindow(JFrame toBeShown){
+        System.out.println("Showing window " + toBeShown.getClass().getSimpleName());
+        serverWindow.setVisible(toBeShown == serverWindow);
+        gameWindow.setVisible(toBeShown == gameWindow);
+    }
+    
+    /**
+     * @deprecated
+     */
+    public void switchFromServerToGame() {
         if (serverWindow.isVisible()) {
             serverWindow.setVisible(false);
             gameWindow.setVisible(true);
         } else {
+            System.out.println("heeelp");
             serverWindow.setVisible(true);
             gameWindow.setVisible(false);
         }
     }
     
-    public JFrame getFocusWindow() {
+ /*   public JFrame getFocusWindow() {
         if (serverWindow.isVisible()) {
             return serverWindow;
         } else {
             return gameWindow;
         }
-    }
+    }*/
     
     public GameWindow getGameWindow() {
-        return (GameWindow)gameWindow;
+        return gameWindow;
     }
+    
+    public ServerWindow getServerWindow() {
+        return serverWindow;
+    }
+    
+    
 }

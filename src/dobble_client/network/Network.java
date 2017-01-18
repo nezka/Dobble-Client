@@ -14,6 +14,8 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
         
 public class Network {
@@ -47,8 +49,11 @@ public class Network {
             
             isr = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
             osw = new OutputStreamWriter(socket.getOutputStream());
-            recieveThread.start();
-            sendThread.start();
+           // 
+           if (!recieveThread.isAlive()) {
+               startThreads();
+           }
+            
             return null;
         } catch (IOException ex) {
                 System.out.println("IO exception - connection");
@@ -66,24 +71,29 @@ public class Network {
     
     protected String recieveMessage() throws IOException {
         String message = isr.readLine();
-        if (message == null) {
-            System.out.println("");
-        }
         System.out.println("Message Received:" + message);
         return message;
     }
     
-    public void closeConnection() throws IOException {
-        sendThread.stopThread();
-        recieveThread.stopThread();
-        isr.close();
-        osw.close();
-        socket.close();
+    public void closeConnection() {
+        try {
+            isr.close();
+            osw.close();
+            socket.close();
+        } catch (IOException ex) {
+            System.err.println("Can't close connection.");
+        }
     }
     
     public void setSendAndRecieveThread(SendThread s, RecieveThread r) {
         sendThread = s;
         recieveThread = r;
+        
+    }
+    
+    public void startThreads() {
+        sendThread.start();
+        recieveThread.start();
     }
     
 }

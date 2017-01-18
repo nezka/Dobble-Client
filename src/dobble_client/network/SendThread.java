@@ -6,6 +6,8 @@
 package dobble_client.network;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -46,7 +48,14 @@ public class SendThread extends Thread {
                 netConnection.sendMessage(parsedMessage.prepareMessageForSending());
                 
             } catch (IOException ex) {
-                System.err.println("IOException during sending message: " + ex.getStackTrace());
+                while(!messages.isEmpty()) {
+                    messages.getMessage();
+                }
+                try {
+                    Thread.sleep(200);
+                } catch (InterruptedException ex1) {
+                    Logger.getLogger(SendThread.class.getName()).log(Level.SEVERE, null, ex1);
+                }
             }
             
             

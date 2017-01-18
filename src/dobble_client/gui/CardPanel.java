@@ -10,10 +10,10 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
-import java.awt.Stroke;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Ellipse2D;
@@ -32,19 +32,9 @@ public class CardPanel extends JPanel {
     public CardPanel(Actions control, Symbol[] sym) {
         this.control = control;
         this.setPreferredSize(new Dimension(200,300));
-        setLayout(new GridLayout(3, 3));
-
-        add(new JLabel());
-
-        add(createSymbolLB(sym[0], SwingConstants.CENTER));
-        add(new JLabel());
-        add(createSymbolLB(sym[1], JLabel.RIGHT));
-        add(createSymbolLB(sym[2], SwingConstants.CENTER));
-        add(createSymbolLB(sym[3], JLabel.LEFT));
-
-        add(new JLabel());
-        add(createSymbolLB(sym[4], SwingConstants.CENTER));
-        add(new JLabel());
+        setLayout(new GridLayout(5, 5));
+        makeGrid(sym);
+        
 
     }
     
@@ -54,7 +44,8 @@ public class CardPanel extends JPanel {
         float thickness = 3;
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(thickness));   
-        Ellipse2D.Double circle = new Ellipse2D.Double(this.getWidth()/3 - 65,25,this.getWidth()/2,this.getHeight()-50);
+        //Ellipse2D.Double circle = new Ellipse2D.Double(this.getWidth()/3 - 70,20,this.getWidth()/2,this.getHeight()-50);
+        Ellipse2D.Double circle = new Ellipse2D.Double(50,10,this.getWidth()-100,this.getHeight()-20);
         g2.draw(circle);       
         g2.setColor(Color.CYAN);
         g2.fill(circle);
@@ -78,14 +69,41 @@ public class CardPanel extends JPanel {
     private JLabel createSymbolLB(Symbol s, int cons) {
         JLabel l = new JLabel(s.getName(), cons);
         l.setForeground(s.getColor());
-      
+        //l.setBackground(Color.GRAY);
+        l.setFont(new Font("Default", Font.BOLD, 14));
+
+       // l.setPreferredSize(new Dimension(15,40));
         l.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
                 control.sendMessageCardClicked("" + s.getSymbolId());
-                System.out.println("click\n");
             }
         });
         return l;
+    }
+    
+    void makeGrid(Symbol[] sym) {
+             
+        add(new JLabel());
+        add(new JLabel());
+        add(createSymbolLB(sym[0], SwingConstants.CENTER));
+        
+        for (int i = 3; i < 10; i++) {
+            add(new JLabel());
+        }
+        
+        add(createSymbolLB(sym[1], JLabel.RIGHT));
+        add(new JLabel());
+        add(createSymbolLB(sym[2], SwingConstants.CENTER));
+        add(new JLabel());
+        add(createSymbolLB(sym[3], JLabel.LEFT));
+
+        for (int i = 15; i < 22; i++) {
+            add(new JLabel());
+        }
+        
+        add(createSymbolLB(sym[4], SwingConstants.CENTER));
+        add(new JLabel());    
+        add(new JLabel());
     }
 }
