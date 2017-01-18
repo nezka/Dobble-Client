@@ -106,9 +106,21 @@ public final class GameWindow extends JFrame{
             centerPN = new JPanel();
             centerPN.setLayout(new BorderLayout());
             String message = "   ->   Your opponent left. Try to wait a moment, they may return."; 
+            JButton again = new JButton("Don't wait");
+            again.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    control.leaveOpponent();
+                    
+                }
+                
+            });
             JLabel lbl = new JLabel(message);
+            JPanel p = new JPanel();
+            p.add(again);
             lbl.setVerticalAlignment(SwingConstants.CENTER);
             centerPN.add(lbl , BorderLayout.WEST);
+            centerPN.add(p , BorderLayout.SOUTH);
             addCenterPN();
   
         });

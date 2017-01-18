@@ -92,6 +92,15 @@ public class Actions {
     public void playAgain() {
         ParsedMessage message = new ParsedMessage('G', 'A', null); 
         addToSendQueue(message);
+        ParsedMessage message2 = new ParsedMessage('G', 'N', null); 
+        addToSendQueue(message2);
+    }
+    
+    public void leaveOpponent() {
+        ParsedMessage message = new ParsedMessage('G', 'B', null); 
+        addToSendQueue(message);
+        ParsedMessage message2 = new ParsedMessage('G', 'N', null); 
+        addToSendQueue(message2);
     }
     
     public void joinGame(boolean retry) {

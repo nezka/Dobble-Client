@@ -37,13 +37,17 @@ public class RecieveThread extends Thread {
             try {
                 message = netConnection.recieveMessage();
                 
-                if (message == null) {
+                if (message == null || (message.charAt(0) == 0 && message.length() == 1) ) {
                     netConnection.closeConnection();
                     parsedMessage = new ParsedMessage();
                     parsedMessage.setType('S');
                     parsedMessage.setSubtype('E');
+                    System.out.println("SE");
                 } else {
+                    System.out.println((int)message.charAt(0));
+                    System.out.println("Message:"+message+"oo");
                     message = message.trim();
+                    
                     parsedMessage = parser.parseMessage(message);
                 }
                 
