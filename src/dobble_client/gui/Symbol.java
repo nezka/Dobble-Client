@@ -7,9 +7,6 @@ package dobble_client.gui;
 
 import dobble_client.game.Actions;
 import java.awt.Color;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
 
 /**
  *
@@ -26,11 +23,6 @@ public class Symbol{
         this.name = name;
         this.id = id;
         this.color = color;
-        setClickedListener();
-        
-    }
-    
-    private void setClickedListener() {
         
     }
     
@@ -42,11 +34,11 @@ public class Symbol{
         this.control = control;
     }
     
-    public String getName() {
+    protected String getName() {
         return name;
     }
     
-    public Color getColor() {
+    protected Color getColor() {
         return color;
     }
 }

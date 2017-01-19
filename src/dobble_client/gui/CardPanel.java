@@ -44,14 +44,13 @@ public class CardPanel extends JPanel {
         float thickness = 3;
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(thickness));   
-        //Ellipse2D.Double circle = new Ellipse2D.Double(this.getWidth()/3 - 70,20,this.getWidth()/2,this.getHeight()-50);
         Ellipse2D.Double circle = new Ellipse2D.Double(50,10,this.getWidth()-100,this.getHeight()-20);
         g2.draw(circle);       
         g2.setColor(Color.CYAN);
         g2.fill(circle);
     }
 
-    public void printCard() {
+  /*  public void printCard() {
 
         int componentCount = this.getComponentCount();
 
@@ -64,15 +63,13 @@ public class CardPanel extends JPanel {
             }
             System.out.println("");
         }
-    }
+    }*/
 
     private JLabel createSymbolLB(Symbol s, int cons) {
         JLabel l = new JLabel(s.getName(), cons);
         l.setForeground(s.getColor());
-        //l.setBackground(Color.GRAY);
         l.setFont(new Font("Default", Font.BOLD, 14));
 
-       // l.setPreferredSize(new Dimension(15,40));
         l.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -82,7 +79,7 @@ public class CardPanel extends JPanel {
         return l;
     }
     
-    void makeGrid(Symbol[] sym) {
+    private void makeGrid(Symbol[] sym) {
              
         add(new JLabel());
         add(new JLabel());

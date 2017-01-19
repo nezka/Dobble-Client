@@ -28,10 +28,6 @@ import dobble_client.network.SendThread;
 
 public class Dobble_Client {
  public static void main(String argv[]) {
-    //Test.socketTest("abcd");
-    //Test.roomDesign();
-    
-    //Network nw = new Network();
     WindowsManager wm = new WindowsManager();
     Network nw = new Network();
     MessageStack recieved = new MessageStack();
@@ -39,19 +35,11 @@ public class Dobble_Client {
     Actions control = new Actions(nw, recieved, toBeSend, wm);
     RecieveThread receiveThread = new RecieveThread(recieved, nw);
     SendThread sendThread = new SendThread(toBeSend, nw);
-    nw.setSendAndRecieveThread(sendThread, receiveThread);
-   // nw.start();
-    
+    nw.setSendAndRecieveThread(sendThread, receiveThread);   
     ServerWindow sw = new ServerWindow(wm, control);
     GameWindow rw = new GameWindow(wm, control);
-    wm.setWindows(sw, rw);
-    
+    wm.setWindows(sw, rw);  
     control.waitForMessage();
-    
-    
-    
-     
-    
             
  }
 }

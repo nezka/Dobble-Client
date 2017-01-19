@@ -22,24 +22,10 @@ public class WindowsManager {
     }
     
     public void showWindow(JFrame toBeShown){
-        System.out.println("Showing window " + toBeShown.getClass().getSimpleName());
         serverWindow.setVisible(toBeShown == serverWindow);
         gameWindow.setVisible(toBeShown == gameWindow);
     }
     
-    /**
-     * @deprecated
-     */
-    public void switchFromServerToGame() {
-        if (serverWindow.isVisible()) {
-            serverWindow.setVisible(false);
-            gameWindow.setVisible(true);
-        } else {
-            System.out.println("heeelp");
-            serverWindow.setVisible(true);
-            gameWindow.setVisible(false);
-        }
-    }
     
  /*   public JFrame getFocusWindow() {
         if (serverWindow.isVisible()) {

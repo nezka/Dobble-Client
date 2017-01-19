@@ -126,6 +126,25 @@ public final class GameWindow extends JFrame{
         });
     }
     
+    public void maliciousServer() {
+        SwingUtilities.invokeLater(() -> {
+            
+            JOptionPane.showMessageDialog(this, "The server is not using the game protocol.\n" +
+                    "It can be a malicious server.\n" +
+                    "Please restart the game.","Malicious server",
+                    JOptionPane.ERROR_MESSAGE);
+            System.exit(0);
+        });
+    }
+    
+    private void resetWindow() {
+        SwingUtilities.invokeLater(() -> {
+            wm.showWindow(wm.getServerWindow());
+            control.resetGame();
+            showWaitMessage();
+        });
+    }
+    
     
     public void showServerDisconnect() {
         SwingUtilities.invokeLater(() -> {
@@ -137,9 +156,7 @@ public final class GameWindow extends JFrame{
             again.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    wm.showWindow(wm.getServerWindow());
-                    control.resetGame();
-                    showWaitMessage();
+                    resetWindow();
                     
                 }
                 
@@ -206,9 +223,6 @@ public final class GameWindow extends JFrame{
   
         });
     }
-    
-    
-    
-    
+ 
 }
 

@@ -6,8 +6,6 @@
 package dobble_client.network;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -42,12 +40,8 @@ public class RecieveThread extends Thread {
                     parsedMessage = new ParsedMessage();
                     parsedMessage.setType('S');
                     parsedMessage.setSubtype('E');
-                    System.out.println("SE");
                 } else {
-                    System.out.println((int)message.charAt(0));
-                    System.out.println("Message:"+message+"oo");
                     message = message.trim();
-                    
                     parsedMessage = parser.parseMessage(message);
                 }
                 

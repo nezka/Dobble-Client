@@ -6,8 +6,6 @@
 package dobble_client.network;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -54,7 +52,7 @@ public class SendThread extends Thread {
                 try {
                     Thread.sleep(200);
                 } catch (InterruptedException ex1) {
-                    Logger.getLogger(SendThread.class.getName()).log(Level.SEVERE, null, ex1);
+                    //Logger.getLogger(SendThread.class.getName()).log(Level.SEVERE, null, ex1);
                 }
             }
             

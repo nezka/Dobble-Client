@@ -5,8 +5,6 @@
  */
 package dobble_client.gui;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author anvy

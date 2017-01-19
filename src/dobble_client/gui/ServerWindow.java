@@ -6,8 +6,6 @@
 package dobble_client.gui;
 
 import dobble_client.game.Actions;
-import dobble_client.gui.WindowsManager;
-import dobble_client.network.Network;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -35,7 +33,7 @@ public class ServerWindow extends JFrame {
         setUpFrame();
     }
     
-    public void setUpFrame() {
+    private void setUpFrame() {
         this.setTitle("Connection parameters");
         this.setSize(300, 135);
         this.setLocationRelativeTo(null);
@@ -48,7 +46,7 @@ public class ServerWindow extends JFrame {
         this.setVisible(true);
     }
 
-    JPanel addUpperPN() {
+    private JPanel addUpperPN() {
         JPanel horniPN = new JPanel();
         horniPN.add(new JLabel("Server Address: "));
         ipTX = new JTextField();
@@ -57,7 +55,7 @@ public class ServerWindow extends JFrame {
         return horniPN;
     }
 
-    JPanel addLowerPN() {
+    private JPanel addLowerPN() {
         JPanel dolniPN = new JPanel();
         dolniPN.add(new JLabel("Port: "));
         portTX = new JTextField();
@@ -66,7 +64,7 @@ public class ServerWindow extends JFrame {
         return dolniPN;
     }
 
-    JPanel addButtons() {
+    private JPanel addButtons() {
         JPanel panel = new JPanel();
         JButton ok = new JButton("OK");
         JButton cancel = new JButton("Cancel");

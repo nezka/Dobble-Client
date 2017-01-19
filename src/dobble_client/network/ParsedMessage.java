@@ -1,8 +1,6 @@
 
 package dobble_client.network;
 
-import java.io.IOException;
-
 public class ParsedMessage {
     private final char MAX_TYPE = 'Z';
     private final char MIN_TYPE = 'A';
@@ -20,7 +18,6 @@ public class ParsedMessage {
     public ParsedMessage(char type, char subtype, String text) {
         this.type = type;
         this.subtype = subtype;
-        //this.length = length;
         this.text = text;
     }
     
@@ -75,7 +72,7 @@ public class ParsedMessage {
         if (message.charAt(message.length()-1) != '\n') {
             message = message+'\n';
         }
-        //System.out.println("Pripravena zprava: " + message);
+      
         return message;
     }
     

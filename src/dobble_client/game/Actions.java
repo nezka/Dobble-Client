@@ -5,28 +5,15 @@
  */
 package dobble_client.game;
 
-import dobble_client.gui.GameWindow;
 import dobble_client.gui.WindowsManager;
 import dobble_client.network.MessageStack;
 import dobble_client.network.Network;
 import dobble_client.network.ParsedMessage;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 
-/**
- *
- * @author anvy
- */
 public class Actions {
-    private boolean inGame = false;
-    private boolean gameEnded = false;
-    private int round = 1;
     
+    private int round = 1;   
     private MessageStack recieved;
     private MessageStack toBeSended;
     private WindowsManager wm;
@@ -39,8 +26,6 @@ public class Actions {
         this.toBeSended = toBeSended;
         this.nw = nw;
         this.wm = wm;
-      
-  
         
     }
    
@@ -48,39 +33,27 @@ public class Actions {
 
  
     public void waitForMessage() {
-        //MessageProcessor mp = new MessageProcessor();
+
         while (true) {
             synchronized (recieved) {
                 while (recieved.isEmpty()) {
                     try {
                         recieved.wait();
                     } catch (InterruptedException ex) {
-                        System.out.println("interrupted wait controller");
+                        System.err.println("interrupted wait controller");
                     }
                 }
                 ParsedMessage m = recieved.getMessage();
-                System.out.println(m.getText() + "   neeeee");
-                processMessage(m);
-                   
-                
+                processMessage(m);  
                 
             }
         }
     }
     
-    public void symbolClicked(int id) {
-        System.out.println("Kliknuto na symbol: " + id + "\n");
-    }
-    
-    
-    
     public String connectToGameServer(String hostname, int port) {
         return nw.connectToServer(hostname, port);
     }
     
-    public void reconnectAfterDisconnect() {
-        
-    }
     
     public void sendMessageCardClicked(String text) {
         text = round+";"+text;
@@ -127,14 +100,12 @@ public class Actions {
     
     
     
-    public void closeGame() {
-        System.out.println("zaviram");
-                
+    private void closeGame() {       
         nw.closeConnection();
         System.exit(0);
     }
     
-     public void processMessage(ParsedMessage message) {
+    private void processMessage(ParsedMessage message) {
         switch(message.getType()) {
             case 'G': 
                 processGameMessage(message);
@@ -143,6 +114,7 @@ public class Actions {
                 processServiceMessage(message);
                 break;
             default: 
+                wm.getGameWindow().maliciousServer();
                         
         }
     }
@@ -152,24 +124,19 @@ public class Actions {
         switch(message.getSubtype()) {
             case 'W': 
                 wm.getGameWindow().showWaitMessage();
-                
-                System.out.println("Nedostatek hracu, cekej.\n");
                 break;
             case 'G': 
                 RetryManager.setRetrySecret(message.getText());
-                System.out.println("Zacina hra\n");
                 break;
-            case 'V': 
-                      
+            case 'V':      
                 parts = parseText(message.getText());
                 wm.getGameWindow().updateGameStats(parts[0], parts[1], parts[2]);
                 round = Integer.parseInt(parts[2]);
                 wm.getGameWindow().drawCards(Integer.parseInt(parts[3]), Integer.parseInt(parts[4]));
-                System.out.println("Vitez kola\n");
                 break;
-            case 'I': 
+        /*    case 'I': 
                 System.out.println("Nespravna odpoved\n");
-                break;
+                break;*/
             case 'F': 
                 parts = parseText(message.getText());
                 int my = Integer.parseInt(parts[0]);
@@ -180,11 +147,9 @@ public class Actions {
                 } else {
                     wm.getGameWindow().showVictoryMessage(false);
                 }
-                System.out.println("Hra skoncila\n");
                 break;
             default: 
-                System.out.println("podezrely server");
-                        
+                wm.getGameWindow().maliciousServer();           
         }
     }
     
@@ -196,26 +161,19 @@ public class Actions {
     private void processServiceMessage(ParsedMessage message) {
         switch(message.getSubtype()) {
             case 'E': 
-//                nw.closeConnection();
                 wm.getGameWindow().showServerDisconnect();
-           //     wm.showWindow(wm.getServerWindow());
                 break;
             case 'O': 
                 wm.getGameWindow().showOpponentLeft();
-                System.out.println("Protihrac se odpojil :(\n");
                 break;
             default: 
-                System.out.println("Podezrely server.");
-                //poslat zpravu podezrely server a odpojit se
+                wm.getGameWindow().maliciousServer();
                         
         }
     }
     
     private String[] parseText(String text) {
         String[] parts = text.split(";");
-        for (String part : parts) {
-            System.out.println(part);
-        }
         return parts;
     }
     

@@ -42,7 +42,7 @@ public class Symbols {
         setControls(control);
     }
     
-    
+    /*
     public Symbol getSymbol(int index) {
         if (index < symbols.length) {
             return symbols[index];
@@ -50,9 +50,9 @@ public class Symbols {
             System.err.println("Error in symbols indexes.");
             return null;
         }
-    }
+    }*/
     
-    public void setControls(Actions control) {
+    private void setControls(Actions control) {
         for (int i = 0; i < symbols.length; i++) {
             symbols[i].setControl(control);
         }

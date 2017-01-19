@@ -15,7 +15,6 @@ public class Parser {
         ParsedMessage pm = new ParsedMessage();
         getType(message, pm);
         getSubtype(message, pm);
-      /*  getLength(message, pm);*/
         getText(message, pm);
         
         return pm;

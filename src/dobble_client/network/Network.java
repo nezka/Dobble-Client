@@ -14,8 +14,6 @@ import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
         
 public class Network {
@@ -25,11 +23,6 @@ public class Network {
     private BufferedReader isr = null;
     private RecieveThread recieveThread = null;
     private SendThread sendThread = null;
-    
-    public Network() {
-
-
-    }
     
     
     public String connectToServer(String hostname, int port) {
@@ -45,7 +38,7 @@ public class Network {
         try {
             socket = new Socket();
             socket.connect(new InetSocketAddress(address.getHostAddress(), port), 1000);
-            System.out.print("Connecting to: "+address.getHostAddress()+" with hostname: "+address.getHostName()+"\n" );
+            //System.out.print("Connecting to: "+address.getHostAddress()+" with hostname: "+address.getHostName()+"\n" );
             
             isr = new BufferedReader(new InputStreamReader(socket.getInputStream())); 
             osw = new OutputStreamWriter(socket.getOutputStream());
@@ -56,7 +49,7 @@ public class Network {
             
             return null;
         } catch (IOException ex) {
-                System.out.println("IO exception - connection");
+                
                 return "Can't connect to server.";
         }
         
@@ -66,12 +59,12 @@ public class Network {
     protected void sendMessage(String message) throws IOException {
         osw.write(message);
         osw.flush();
-        System.out.println("Message Send: " + message);
+        //System.out.println("Message Send: " + message);
     }
     
     protected String recieveMessage() throws IOException {
         String message = isr.readLine();
-        System.out.println("Message Received:" + message);
+        //System.out.println("Message Received:" + message);
         return message;
     }
     
