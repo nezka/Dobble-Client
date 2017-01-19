@@ -5,7 +5,7 @@
  */
 package dobble_client.gui;
 
-import dobble_client.game.Actions;
+import dobble_client.game.Control;
 import java.awt.Color;
 
 /**
@@ -17,7 +17,7 @@ public class Symbol{
     private int id;
     private String name;
     private Color color;
-    private Actions control;
+    private Control control;
     
     protected Symbol(String name, int id, Color color) {
         this.name = name;
@@ -30,7 +30,7 @@ public class Symbol{
         return id;
     }
     
-    protected void setControl(Actions control) {
+    protected void setControl(Control control) {
         this.control = control;
     }
     

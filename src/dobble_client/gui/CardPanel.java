@@ -5,7 +5,7 @@
  */
 package dobble_client.gui;
 
-import dobble_client.game.Actions;
+import dobble_client.game.Control;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Component;
@@ -27,9 +27,9 @@ import javax.swing.SwingConstants;
  */
 public class CardPanel extends JPanel {
 
-    private final Actions control;
+    private final Control control;
 
-    public CardPanel(Actions control, Symbol[] sym) {
+    public CardPanel(Control control, Symbol[] sym) {
         this.control = control;
         this.setPreferredSize(new Dimension(200,300));
         setLayout(new GridLayout(5, 5));

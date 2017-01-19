@@ -5,7 +5,7 @@
  */
 package dobble_client.gui;
 
-import dobble_client.game.Actions;
+import dobble_client.game.Control;
 import java.awt.Color;
 
 /**
@@ -38,7 +38,7 @@ public class Symbols {
         new GuiSymbol("GREEN", 20, Color.BLUE),*/
     };
     
-    public Symbols(Actions control) {
+    public Symbols(Control control) {
         setControls(control);
     }
     
@@ -52,7 +52,7 @@ public class Symbols {
         }
     }*/
     
-    private void setControls(Actions control) {
+    private void setControls(Control control) {
         for (int i = 0; i < symbols.length; i++) {
             symbols[i].setControl(control);
         }

@@ -2,7 +2,7 @@
 package dobble_client.gui;
 
 
-import dobble_client.game.Actions;
+import dobble_client.game.Control;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -18,13 +18,13 @@ import javax.swing.SwingUtilities;
 public final class GameWindow extends JFrame{
     
     private WindowsManager wm;
-    private Actions control;
+    private Control control;
     private GameStats stats = new GameStats();
     private JPanel centerPN = new JPanel();
     private JPanel mainPN;
     private Cards cards;
     
-    public GameWindow (WindowsManager wm, Actions control) {
+    public GameWindow (WindowsManager wm, Control control) {
         this.wm = wm;
         this.control = control;
         Symbols symbols = new Symbols(control);

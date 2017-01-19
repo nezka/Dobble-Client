@@ -16,7 +16,7 @@ import java.io.Writer;
 
 /**
  *
- * @author anvy
+ * @author Anezka Jachymova
  */
 public class RetryManager {
     

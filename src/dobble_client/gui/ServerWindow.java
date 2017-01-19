@@ -5,7 +5,7 @@
  */
 package dobble_client.gui;
 
-import dobble_client.game.Actions;
+import dobble_client.game.Control;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -24,10 +24,10 @@ public class ServerWindow extends JFrame {
     private JTextField ipTX;		
     private JTextField portTX;	
     private WindowsManager wm;
-    private Actions control;
+    private Control control;
     
 
-    public ServerWindow(WindowsManager wm, Actions control) {
+    public ServerWindow(WindowsManager wm, Control control) {
         this.control = control;
         this.wm = wm;
         setUpFrame();

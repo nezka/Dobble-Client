@@ -10,28 +10,30 @@ import dobble_client.network.MessageStack;
 import dobble_client.network.Network;
 import dobble_client.network.ParsedMessage;
 
-
-public class Actions {
+/**
+ * This class controls the game logic. 
+ * @author Anezka Jachymova
+ */
+public class Control {
     
     private int round = 1;   
     private MessageStack recieved;
     private MessageStack toBeSended;
     private WindowsManager wm;
     private Network nw;
-    
-    
-    
-    public Actions(Network nw, MessageStack recieved, MessageStack toBeSended, WindowsManager wm) {
+
+    public Control(Network nw, MessageStack recieved, MessageStack toBeSended, WindowsManager wm) {
         this.recieved = recieved;
         this.toBeSended = toBeSended;
         this.nw = nw;
         this.wm = wm;
         
     }
-   
-    
 
  
+    /**
+     * Waits till there is a message in the queue for processing.
+     */
     public void waitForMessage() {
 
         while (true) {
@@ -50,11 +52,20 @@ public class Actions {
         }
     }
     
+    /**
+     * Tries to make connection to the game server.
+     * @param hostname server hostname
+     * @param port server port
+     * @return if everything went ok - null, otherwise error message
+     */
     public String connectToGameServer(String hostname, int port) {
         return nw.connectToServer(hostname, port);
     }
     
-    
+    /**
+     * Prepares message and adds it to the send queue.
+     * @param text name of the symbol on a card
+     */
     public void sendMessageCardClicked(String text) {
         text = round+";"+text;
         ParsedMessage m = new ParsedMessage('G', 'C', text);
@@ -62,6 +73,9 @@ public class Actions {
        
     }
     
+    /**
+     * Prepares message and adds it to the send queue.
+     */
     public void playAgain() {
         ParsedMessage message = new ParsedMessage('G', 'A', null); 
         addToSendQueue(message);
@@ -69,6 +83,9 @@ public class Actions {
         addToSendQueue(message2);
     }
     
+    /**
+     * Prepares message and adds it to the send queue.
+     */
     public void leaveOpponent() {
         ParsedMessage message = new ParsedMessage('G', 'B', null); 
         addToSendQueue(message);
@@ -76,6 +93,10 @@ public class Actions {
         addToSendQueue(message2);
     }
     
+    /**
+     * Prepares message and adds it to the send queue.
+     * @param retry 
+     */
     public void joinGame(boolean retry) {
         String text = null;
         if (retry) {
@@ -85,12 +106,19 @@ public class Actions {
         addToSendQueue(message);
     }
     
+    /**
+     * Prepares message and adds it to the send queue.
+     */
     public void exitGame() {
         ParsedMessage message = new ParsedMessage('G', 'L', null); 
         addToSendQueue(message);
         closeGame();
     }
     
+    /**
+     * Adds message to the send queue
+     * @param message message to send
+     */
     private void addToSendQueue(ParsedMessage message) {
         synchronized (toBeSended) {
             toBeSended.addMessage(message);
@@ -98,13 +126,18 @@ public class Actions {
         } 
     }
     
-    
-    
+    /**
+     * Closes connection and exits game.
+     */
     private void closeGame() {       
         nw.closeConnection();
         System.exit(0);
     }
     
+    /**
+     * Processes the incoming message.
+     * @param message message to be processed
+     */
     private void processMessage(ParsedMessage message) {
         switch(message.getType()) {
             case 'G': 
@@ -119,6 +152,10 @@ public class Actions {
         }
     }
     
+    /**
+     * Processes the incoming game message.
+     * @param message message to parse
+     */
     private void processGameMessage(ParsedMessage message) {
         String[] parts = null;
         switch(message.getSubtype()) {
@@ -153,11 +190,18 @@ public class Actions {
         }
     }
     
+    /**
+     * Resets the gaming stats.
+     */
     public void resetGame() {
         wm.getGameWindow().updateGameStats("0", "0", "0");
         round = 1;
     }
     
+    /**
+     * Processes the incoming service message.
+     * @param message message to parse
+     */
     private void processServiceMessage(ParsedMessage message) {
         switch(message.getSubtype()) {
             case 'E': 
