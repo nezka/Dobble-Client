@@ -1,29 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dobble_client;
 
-/**
- *
- * @author anvy
- */
-;
 
 
 import dobble_client.game.Control;
-
-
-
-import dobble_client.gui.GameWindow;
-import dobble_client.network.Network;
-import dobble_client.gui.ServerWindow;
-import dobble_client.gui.WindowsManager;
-import dobble_client.network.MessageStack;
-import dobble_client.network.RecieveThread;
-import dobble_client.network.SendThread;
-
 
 
 import dobble_client.gui.GameWindow;

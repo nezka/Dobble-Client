@@ -133,7 +133,8 @@ public final class GameWindow extends JFrame{
                     "It can be a malicious server.\n" +
                     "Please restart the game.","Malicious server",
                     JOptionPane.ERROR_MESSAGE);
-            System.exit(0);
+            wm.showWindow(wm.getServerWindow());
+            control.resetGame();
         });
     }
     

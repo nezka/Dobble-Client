@@ -35,10 +35,16 @@ public class RecieveThread extends Thread {
             try {
                 message = netConnection.recieveMessage();
                 
+                        
                 if (message == null || (message.charAt(0) == 0 && message.length() == 1) ) {
                     netConnection.closeConnection();
                     parsedMessage = new ParsedMessage();
                     parsedMessage.setType('S');
+                    parsedMessage.setSubtype('E');
+                }else if ((message.length() < 2) || (message.length() > 16)) {
+                    netConnection.closeConnection();
+                    parsedMessage = new ParsedMessage();
+                    parsedMessage.setType('E');
                     parsedMessage.setSubtype('E');
                 } else {
                     message = message.trim();

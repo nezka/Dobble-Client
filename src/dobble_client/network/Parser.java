@@ -8,9 +8,6 @@ public class Parser {
     
     
     public ParsedMessage parseMessage(String message) {
-        if (message == null) {
-            System.out.println("Connection ended\n");
-        }
         String modifiedMessage;
         ParsedMessage pm = new ParsedMessage();
         getType(message, pm);
